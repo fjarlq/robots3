@@ -19,7 +19,6 @@
 
 char whoami[MAXSTR];
 char my_user_name[MAXSTR];
-char cmd_ch;
 
 bool dead = FALSE;
 bool last_stand;
@@ -31,7 +30,6 @@ int my_x, my_y;
 int new_x, new_y;
 int level = 0;
 int free_teleports = 0;
-int old_free;
 int free_per_level = 1;
 int count;
 int dots = 0;
@@ -101,7 +99,6 @@ int main(int argc, char *argv[])
         adjacent = FALSE;
         waiting = FALSE;
         last_stand = FALSE;
-        old_free = -1;
         if (rnd(free_per_level) < free_teleports) {
             free_per_level++;
             if (free_per_level > MAX_FREE)
@@ -152,14 +149,12 @@ void draw_screen(void)
 
 char readchar(void)
 {
-    static char buf[1];
-    extern int errno;
-
-    while (read(0, buf, 1) != 1) {
+    char c;
+    while (read(0, &c, 1) != 1) {
         if (errno != EINTR)
             quit(TRUE);
     }
-    return (buf[0]);
+    return c;
 }
 
 void put_dots(void)
@@ -273,7 +268,7 @@ int rnd(int mod)
 
 void msg(char *message, ...)
 {
-    static char msgbuf[1000];
+    char msgbuf[1000];
     va_list args;
 
     va_start(args, message);

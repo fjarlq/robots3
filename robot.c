@@ -112,9 +112,8 @@ void collision(struct robot *r, struct robot *end)
 void screwdriver(void)
 {
     int test_x, test_y;
-    char *m;
     struct robot *end, *find;
-    static char moves[] = "hjklyubn.";
+    char *m, *moves = "hjklyubn.";
 
     end = &rbt_list[max_robots];
 

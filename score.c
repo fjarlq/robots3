@@ -17,7 +17,7 @@ struct scorefile {
 
 void scoring(bool eaten)
 {
-    static char buf[MAXSTR];
+    char buf[MAXSTR];
 
     sprintf(buf, "for this %s", TEMP_NAME);
     if (record_score(eaten, TMP_FILE, TEMP_DAYS, buf) || show_highscore) {
@@ -178,7 +178,8 @@ out:
 
 void scorer(void)
 {
-    static char tels[6];
+    static int old_free = -1;
+    static char tels[32];
     if (free_teleports != old_free) {
         if (free_teleports > free_per_level) {
             sprintf(tels, "%d+%d",

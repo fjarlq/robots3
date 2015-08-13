@@ -70,7 +70,6 @@ struct robot {
 
 extern char whoami[];
 extern char my_user_name[];
-extern char cmd_ch;
 
 extern bool moveable_heaps;
 extern bool show_highscore;
@@ -93,7 +92,6 @@ extern int max_robots;
 extern int scrap_heaps;
 extern int nrobots_alive;
 extern int free_per_level;
-extern int old_free;
 
 extern long score;
 
@@ -137,6 +135,6 @@ void scorer(void);
 
 /* user.c */
 void command(void);
-int read_com(void);
+char read_com(void);
 void do_move(char dir);
 int move_heap(char dir);

@@ -7,6 +7,7 @@
 /* whats the user trying to tell us */
 void command(void)
 {
+    static char cmd_ch;
 retry:
     if (!running && !waiting)
         show_good_moves();
@@ -154,7 +155,7 @@ teleport:
     refresh();
 }
 
-int read_com(void)
+char read_com(void)
 {
     static int com;
 
