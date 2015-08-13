@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     strcpy(whoami, x);
     if ((x = getenv(ROBOTOPTS)) != NULL && *x != '\0')
         get_robot_opts(x);
-    seed = time((time_t *) 0) + getuid();
+    seed = time(NULL) + getuid();
     signal(SIGQUIT, interrupt);
     signal(SIGINT, interrupt);
     if (initscr() == NULL) {

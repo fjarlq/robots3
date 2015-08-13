@@ -64,7 +64,7 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
     int x, uid, this_day, limit;
     ssize_t nread;
 
-    this_day = max_days ? time((time_t *) 0) / SECSPERDAY : 0;
+    this_day = max_days ? time(NULL) / SECSPERDAY : 0;
     limit = this_day - max_days;
     sfile = (struct scorefile *)(malloc(FILE_SIZE));
     if (sfile == NULL) {
@@ -72,7 +72,7 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
         return FALSE;
     }
     eof = &sfile[NUMSCORES];
-    this = 0;
+    this = NULL;
     for (position = sfile; position < eof; position++) {
         position->s_score = 0;
         position->s_days = 0;
@@ -88,10 +88,10 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
                 nread, FILE_SIZE);
         return FALSE;
     }
-    remove = 0;
+    remove = NULL;
     if (score > 0) {
         uid = getuid();
-        oldest = 0;
+        oldest = NULL;
         x = limit;
         for (position = eof - 1; position >= sfile; position--) {
             if (position->s_days < x) {
@@ -99,9 +99,9 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
                 oldest = position;
             }
         }
-        position = 0;
+        position = NULL;
         for (remove = sfile; remove < eof; remove++) {
-            if (position == 0 && score > remove->s_score)
+            if (position == NULL && score > remove->s_score)
                 position = remove;
 #ifndef ALLSCORES
             if (remove->s_uid == uid)
@@ -109,11 +109,11 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
 #endif
         }
         if (remove < eof) {
-            if (position == 0 && remove->s_days < limit)
+            if (position == NULL && remove->s_days < limit)
                 position = remove;
         } else if (oldest) {
             remove = oldest;
-            if (position == 0) {
+            if (position == NULL) {
                 position = eof - 1;
             } else if (remove < position) {
                 position--;
@@ -175,7 +175,7 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
             putchar('\n');
         }
     }
-    return (this != 0);
+    return (this != NULL);
 }
 
 void scorer(void)
