@@ -8,6 +8,7 @@ fjarlq's changes include:
 
 - Use robots-esque symbols. (`@` for player, `+` for robot, `*` for scrap)
 - Use robots-esque movement rules: stepping onto robots is disallowed.
+- Code cleanup.
 
 The gameplay in robots2 derives from [the robots game by Ken Arnold][2]
 that first appeared in 4.3BSD Unix, June 1986.
