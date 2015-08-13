@@ -52,7 +52,6 @@ static struct termios origtty;
 #endif
 
 int term_state = TERM_UNINIT;   /* cuts out some race conditions */
-char _obuf[BUFSIZ];
 
 int main(int argc, char *argv[])
 {
@@ -60,7 +59,7 @@ int main(int argc, char *argv[])
     char *x;
     int i;
 
-    setbuf(stdout, _obuf);
+    setbuf(stdout, NULL);
     if (argc > 1) {
         if (argv[1][0] == '-') {
             switch (argv[1][1]) {
