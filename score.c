@@ -43,7 +43,7 @@ int record_score(bool eaten, char *fname, int max_days, char *type_str)
     ohup = signal(SIGHUP, SIG_IGN);
     otstp = signal(SIGTSTP, SIG_IGN);
 
-    if ((fd = lk_open(fname, 2)) < 0) {
+    if ((fd = lk_open(fname, O_RDWR)) < 0) {
         perror(fname);
         value = FALSE;
     } else {
