@@ -70,7 +70,7 @@ retry:
     case 'r':
     case 'T':
     case 'R':
-    teleport:
+teleport:
         new_x = rndx();
         new_y = rndy();
         move(new_y, new_x);
