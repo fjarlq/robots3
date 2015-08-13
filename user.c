@@ -7,7 +7,7 @@
 /* whats the user trying to tell us */
 void command(void)
 {
-  retry:
+retry:
     move(my_y, my_x);
     refresh();
     if (last_stand)
@@ -70,7 +70,7 @@ void command(void)
     case 'r':
     case 'T':
     case 'R':
-      teleport:
+    teleport:
         new_x = rndx();
         new_y = rndy();
         move(new_y, new_x);
