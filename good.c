@@ -14,7 +14,7 @@ void show_good_moves(void)
     int test_x, test_y;
     char *m, *a;
     char savebuf[9], savechar;
-    int i, j, notsilly;
+    int i, j;
 
     a = good_moves;
     for (m = moves; *m != 'a'; m++) {
@@ -47,7 +47,7 @@ void show_good_moves(void)
     }
     /* now lets do the antimatter case */
     if (free_teleports) {
-        notsilly = 0;           /* silly to do it if not get robots */
+        bool silly = TRUE;           /* silly to do it if no robots */
         for (i = -1; i <= 1; i++) {
             for (j = -1; j <= 1; j++) {
                 move(my_y + i, my_x + j);
@@ -55,12 +55,12 @@ void show_good_moves(void)
                 if (savechar == FROBOT || savechar == ROBOT) {
                     savebuf[(i + 1) * 3 + j + 1] = savechar;
                     addch(' ');
-                    notsilly = 1;
+                    silly = FALSE;
                 } else
                     savebuf[(i + 1) * 3 + j + 1] = ' ';
             }
         }
-        if (notsilly && isgood(my_y, my_x))
+        if (!silly && isgood(my_y, my_x))
             *a++ = *m;
 
         for (i = -1; i <= 1; i++) {
