@@ -97,8 +97,9 @@ extern int old_free;
 extern long score;
 
 /* good.c */
-void good_moves(void);
+void show_good_moves(void);
 int isgood(int ty, int tx);
+int is_good_move(char move);
 int scan(int y, int x, int yi, int xi);
 int blocked(int my, int mx, int y, int x);
 

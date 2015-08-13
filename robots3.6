@@ -41,21 +41,22 @@ Move down and right.
 Do nothing.
 .IP t
 Teleport to a safe square if possible (limited in number).
-.IP r
+.IP T
+Teleport to a random position.
+.IP R
 Teleport to a random position.
 .IP a
 Antimatter, all robots one square away from you vanish.
-.IP s
+.IP S
+Sit and watch.
 .IP W
 Sit and watch.
 .IP d
 Display dots.
-.IP m
-Print list of `safe' moves.
-.IP ?
-Same as above.
-.IP q
+.IP Q
 Quit game.
+.IP ^L
+Redraw the screen.
 .IP ^R
 Redraw the screen.
 .IP ^Z
@@ -64,10 +65,10 @@ Suspend the game, on systems which support it.
 Sit and watch while safe to do so.
 .PP
 A command may be preceeded by a count where relevant.
-.I Shift\-direction
-moves as far as possible in that direction.
-.I Control\-direction
-moves until adjacent to something.
+.I Shift-direction
+moves as far as safely possible in that direction.
+A list of safe moves is continually displayed at the bottom of
+the screen, excluding shift-direction moves.
 .PP
 A record is kept of the personal best scores of each player:
 one for the current week and one for all time.

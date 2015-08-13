@@ -6,16 +6,17 @@
  * and moveable heaps and its now an AI expert system in its own right!
  */
 
-void good_moves(void)
+static char moves[] = "hjklyubn.a";
+static char good_moves[sizeof(moves)];
+
+void show_good_moves(void)
 {
     int test_x, test_y;
     char *m, *a;
-    static char moves[] = "hjklyubn.a";
-    static char ans[sizeof(moves)];
     char savebuf[9], savechar;
     int i, j, notsilly;
 
-    a = ans;
+    a = good_moves;
     for (m = moves; *m != 'a'; m++) {
         test_x = my_x + xinc(*m);
         test_y = my_y + yinc(*m);
@@ -72,8 +73,8 @@ void good_moves(void)
         }
     }
     *a = 0;
-    if (ans[0]) {
-        a = ans;
+    if (good_moves[0]) {
+        a = good_moves;
     } else {
         a = "Forget it!";
     }
@@ -109,6 +110,11 @@ int isgood(int ty, int tx)
         }
     }
     return TRUE;
+}
+
+int is_good_move(char move)
+{
+    return strchr(good_moves, move) != NULL;
 }
 
 /* scan along this line looking for collision conditions */

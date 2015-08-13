@@ -8,6 +8,8 @@
 void command(void)
 {
 retry:
+    if (!running && !waiting)
+        show_good_moves();
     move(my_y, my_x);
     refresh();
     if (last_stand)
@@ -18,16 +20,12 @@ retry:
         switch (cmd_ch) {
         case ctrl('W'):
             waiting = TRUE;
-        case ctrl('H'):
-        case ctrl('J'):
-        case ctrl('K'):
-        case ctrl('L'):
-        case ctrl('Y'):
-        case ctrl('U'):
-        case ctrl('B'):
-        case ctrl('N'):
-            cmd_ch |= 0100;
-            adjacent = TRUE;
+            /* XXX is currently broken */
+            cmd_ch |= 0140;
+            running = TRUE;
+            first_move = TRUE;
+            count = 0;
+            break;
         case 'H':
         case 'J':
         case 'K':
@@ -39,18 +37,18 @@ retry:
             cmd_ch |= 040;
             running = TRUE;
             first_move = TRUE;
+            adjacent = TRUE;
+            /* fall through... */
         case 't':
         case 'T':
-        case 's':
         case 'S':
         case 'W':
-        case 'm':
-        case 'M':
-        case '?':
         case 'd':
         case 'D':
+        case ctrl('L'):
         case ctrl('R'):
             count = 0;
+            break;
         }
     }
     switch (cmd_ch) {
@@ -67,7 +65,6 @@ retry:
         do_move(cmd_ch);
         break;
     case 't':
-    case 'r':
     case 'T':
     case 'R':
 teleport:
@@ -81,24 +78,17 @@ teleport:
         case ME:
             goto teleport;
         }
-        if ((free_teleports > 0)
-            && ((cmd_ch == 't') || (cmd_ch == 'T'))) {
+        if (free_teleports > 0 && cmd_ch == 't') {
             if (!isgood(new_y, new_x))
                 goto teleport;
             free_teleports--;
         }
         break;
-    case 's':
     case 'S':
     case 'W':
         last_stand = TRUE;
         leaveok(stdscr, TRUE);
         return;
-    case 'm':
-    case 'M':
-    case '?':
-        good_moves();
-        goto retry;
     case 'd':
     case 'D':
         if (dots < 2) {
@@ -109,24 +99,28 @@ teleport:
             dots = 0;
         }
         goto retry;
-    case 'q':
+    /* XXX case 'q': */
     case 'Q':
+        /* XXX should prompt first! */
         quit(FALSE);
+        break;
     case 'a':
     case 'A':                  /* Antimatter - sonic screwdriver */
-        if (free_teleports) {
+        if (free_teleports && is_good_move('a')) {
             new_x = my_x;
             new_y = my_y;
             screwdriver();
         } else
-            goto retry;
+            bad_move = TRUE;
         break;
+    case ctrl('L'):
     case ctrl('R'):
         clearok(curscr, TRUE);
         wrefresh(curscr);
         goto retry;
     default:
         bad_move = TRUE;
+        break;
     }
     if (bad_move) {
         if (running) {
@@ -180,6 +174,10 @@ int read_com(void)
 void do_move(char dir)
 {
     int x, y;
+    if (!is_good_move(dir)) {
+        bad_move = TRUE;
+        return;
+    }
     new_x = my_x + xinc(dir);
     new_y = my_y + yinc(dir);
     if (adjacent && !first_move) {
@@ -190,12 +188,13 @@ void do_move(char dir)
                 case SCRAP:
                     if (waiting)
                         break;
+                    /* fall through... */
                 case ROBOT:
                     if (abs(x) < 2 && abs(y) < 2) {
                         bad_move = TRUE;
                         return;
-                    } else
-                        break;
+                    }
+                    break;
                 case FROBOT:
                     if (waiting && blocked(new_y, new_x, y, x))
                         break;
@@ -210,6 +209,7 @@ void do_move(char dir)
     case SCRAP:
         if (moveable_heaps && move_heap(dir))
             break;
+        /* fall through... */
     case VERT:
     case HORIZ:
         bad_move = TRUE;
