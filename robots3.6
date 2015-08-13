@@ -1,13 +1,13 @@
 .TH ROBOTS3 6 "8 July 1987"
 .SH NAME
-robots3 \- a game of logic
+robots3 - a game of logic
 .SH SYNOPSIS
 .B robots3 [-s]
 .SH DESCRIPTION
-.B Robots3
-is a display-based game which must be played on a CRT terminal
-from among those supported by vi(1).
-The object of the game is to avoid the robots:
+.B robots3
+is a game in which you, the player, try to evade a never-ending
+barrage of robots.
+The object of the game is to avoid the robots by
 causing them to collide with each other, creating a
 .IR scrap\ heap .
 Robots are also destroyed if they run into a
@@ -37,6 +37,7 @@ Move down and left.
 .IP n
 Move down and right.
 .IP .
+Do nothing.
 .IP w
 Do nothing.
 .IP t
@@ -46,7 +47,7 @@ Teleport to a random position.
 .IP R
 Teleport to a random position.
 .IP a
-Antimatter, all robots one square away from you vanish.
+Antimatter: all robots one square away from you vanish.
 .IP S
 Sit and watch.
 .IP W
@@ -71,34 +72,34 @@ A list of safe moves is continually displayed at the bottom of
 the screen, excluding shift-direction moves.
 .PP
 A record is kept of the personal best scores of each player:
-one for the current week and one for all time.
+one for the current week, and one for all time.
 Scores are printed out at the end of the game.
-The scores can be printed out with the '\-s' parameter.
+The scores can be printed out with the '-s' parameter.
 .SH CONFIGURATION
 If you have in your environment the variable
 .I ROBOTOPTS
 then this is examined for a comma separated list of options to be set.
 Binary options can be preceeded with `no' to reverse the meaning.
-Valid options are
+Valid options are:
 .IP name=string
-Set your name to the given string, this is recorded in the high
+Set your name to the given string; this is recorded in the high
 score table. Your name appears as `string (username)'.
 .IP moveheaps
 Make the scrap heaps movable. If heaps are movable, then
 a scrap heap can be pushed in any direction provided there is nothing
-behind the heap. This may or may not be the default.
+behind the heap. This is enabled by default.
 .IP showhscores
 This option shows the highscore table after every game. The
 negated version will only print out the highscore only if you appear
 on it.
 .SH NOTE
-The first time the `t' command is used on a new level
-you are guaranteed not to land next to a robot, a count of
+The first time the `t' command is used on a new level,
+you are guaranteed not to land next to a robot; a count of
 these `safe' teleports is maintained in the bottom left hand corner.
-`Antimatters' use up a `safe' teleport.
-.br
+`Antimatters' use up a safe teleport.
+.PP
 An asterisk in the first set of scores indicates an out-of-date entry.
-.br
+.PP
 The value of each robot in the next round is inversely
 proportional to the
 number of scrap heaps created in the previous round.
@@ -116,3 +117,5 @@ all time best scores
 Allan Black, Strathclyde University, Glasgow.
 .br
 Enhancements by Graeme Lunt & Julian Onions, Nottingham University.
+.br
+Porting and refinement by Matt Day (fjarlq).
