@@ -69,11 +69,11 @@ int main(int argc, char *argv[])
             case 's':
                 show_highscore = TRUE;
                 scoring(FALSE);
-                exit(0);
+                return 0;
             }
         }
     }
-    if ((pass = getpwuid(getuid())) == 0) {
+    if ((pass = getpwuid(getuid())) == NULL) {
         x = "ANON";
     } else {
         x = pass->pw_name;
