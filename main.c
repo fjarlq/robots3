@@ -319,7 +319,6 @@ int lk_close(int fd, char *file)
 #else
 
 # define LOCKTIME (60)          /* 1 minute */
-# include <fcntl.h>
 # include <sys/stat.h>
 
 /* lock a file by crude means */
