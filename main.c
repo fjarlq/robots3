@@ -15,6 +15,7 @@
 
 #include <stdarg.h>
 #include <termios.h>
+#include <sys/time.h>
 #include "robots.h"
 
 char whoami[MAXSTR];
@@ -39,7 +40,6 @@ int nrobots_alive;
 int scrap_heaps = 1;            /* to allow for first level */
 
 long score = 0;
-long seed;
 
 void interrupt(int signum);
 
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     strcpy(whoami, x);
     if ((x = getenv(ROBOTOPTS)) != NULL && *x != '\0')
         get_robot_opts(x);
-    seed = time(NULL) + getuid();
+    seed_rnd();
     signal(SIGQUIT, interrupt);
     signal(SIGINT, interrupt);
     if (initscr() == NULL) {
@@ -259,11 +259,40 @@ int rndy(void)
     return (rnd(LINES - 3) + 1);
 }
 
-int rnd(int mod)
+// Returns in the half-open interval [0, max)
+// http://stackoverflow.com/a/6852396/393684
+long rnd(long upper)
 {
-    if (mod <= 0)
-        return (0);
-    return ((((seed = seed * 11109L + 13849L) >> 16) & 0xffffL) % mod);
+    unsigned long num_bins, num_rand, bin_size, defect;
+    long x;
+
+    if (upper <= 0)
+        return 0;
+
+    // upper <= RAND_MAX < ULONG_MAX, so this is okay.
+    num_bins = (unsigned long)upper;
+    num_rand = (unsigned long)RAND_MAX + 1;
+    bin_size = num_rand / num_bins;
+    defect   = num_rand % num_bins;
+
+    do {
+        x = random();
+    }
+    // This is carefully written not to overflow
+    while (num_rand - defect <= (unsigned long)x);
+
+    // Truncated division is intentional
+    return x / bin_size;
+}
+
+void seed_rnd(void)
+{
+    struct timeval tv;
+    if (gettimeofday(&tv, NULL) == -1) {
+        perror("seed_rnd: gettimeofday");
+        exit(1);
+    }
+    srandom((getpid() << 16) ^ tv.tv_sec ^ tv.tv_usec);
 }
 
 void msg(char *message, ...)
