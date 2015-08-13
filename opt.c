@@ -58,7 +58,7 @@ void get_robot_opts(char *str)
             len2 = (MAXSTR - 1) - (strlen(my_user_name) + 4);
             len = p - str;
             len = len < len2 ? len : len2;
-            (void)sprintf(whoami, "%.*s (%s)", len, str, my_user_name);
+            sprintf(whoami, "%.*s (%s)", len, str, my_user_name);
             break;
         case OPT_MOVE_HEAP:
             moveable_heaps = TRUE;

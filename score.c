@@ -19,7 +19,7 @@ void scoring(bool eaten)
 {
     static char buf[MAXSTR];
 
-    (void)sprintf(buf, "for this %s", TEMP_NAME);
+    sprintf(buf, "for this %s", TEMP_NAME);
     if (record_score(eaten, TMP_FILE, TEMP_DAYS, buf) || show_highscore) {
         printf("[Press return to continue]");
         fflush(stdout);
@@ -50,10 +50,10 @@ int record_score(bool eaten, char *fname, int max_days, char *type_str)
         value = do_score(eaten, fd, max_days, type_str);
         lk_close(fd, fname);
     }
-    (void)signal(SIGINT, oint);
-    (void)signal(SIGTERM, oterm);
-    (void)signal(SIGHUP, ohup);
-    (void)signal(SIGTSTP, otstp);
+    signal(SIGINT, oint);
+    signal(SIGTERM, oterm);
+    signal(SIGHUP, ohup);
+    signal(SIGTSTP, otstp);
     return value;
 }
 
@@ -134,7 +134,7 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
                 }
             }
             position->s_score = score;
-            (void)strncpy(position->s_name, whoami, MAXSTR);
+            strncpy(position->s_name, whoami, MAXSTR);
             position->s_eaten = eaten;
             position->s_level = LEVEL;
             position->s_uid = uid;
@@ -183,10 +183,10 @@ void scorer(void)
     static char tels[6];
     if (free_teleports != old_free) {
         if (free_teleports > free_per_level) {
-            (void)sprintf(tels, "%d+%d",
-                          free_per_level, free_teleports - free_per_level);
+            sprintf(tels, "%d+%d",
+                    free_per_level, free_teleports - free_per_level);
         } else {
-            (void)sprintf(tels, "%d", free_teleports);
+            sprintf(tels, "%d", free_teleports);
         }
         old_free = free_teleports;
     }

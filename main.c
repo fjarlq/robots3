@@ -78,13 +78,13 @@ int main(int argc, char *argv[])
     } else {
         x = pass->pw_name;
     }
-    (void)strcpy(my_user_name, x);
-    (void)strcpy(whoami, x);
+    strcpy(my_user_name, x);
+    strcpy(whoami, x);
     if ((x = getenv(ROBOTOPTS)) != NULL && *x != '\0')
         get_robot_opts(x);
     seed = time((time_t *) 0) + getuid();
-    (void)signal(SIGQUIT, interrupt);
-    (void)signal(SIGINT, interrupt);
+    signal(SIGQUIT, interrupt);
+    signal(SIGINT, interrupt);
     if (initscr() == NULL) {
         fprintf(stderr, "Curses won't initialise - seek a guru\n");
         quit(FALSE);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
         leaveok(stdscr, FALSE);
         move(my_y, my_x);
         refresh();
-        (void)readchar();
+        readchar();
         level++;
     }
 }
@@ -230,7 +230,7 @@ void munch(void)
     mvaddch(my_y, my_x, MUNCH);
     move(my_y, my_x);
     refresh();
-    (void)readchar();
+    readchar();
     quit(TRUE);
 }
 
@@ -249,7 +249,7 @@ void quit(bool eaten)
         term_state &= ~TERM_CURSES;
     }
     putchar('\n');
-    (void)signal(SIGINT, SIG_DFL);
+    signal(SIGINT, SIG_DFL);
     scoring(eaten);
     exit(0);
 }
@@ -304,7 +304,7 @@ int lk_open(char *file, int mode)
     if ((fd = open(file, mode)) < 0)
         return -1;
     if (flock(fd, LOCK_EX) < 0) {
-        (void)close(fd);
+        close(fd);
         return -1;
     }
     return fd;
@@ -330,8 +330,8 @@ int lk_open(char *file, int mode)
     time_t now;
     int fd;
 
-    (void)sprintf(tfile, "%s.t", file); /* temp file */
-    (void)sprintf(lfile, "%s.l", file); /* lock file */
+    sprintf(tfile, "%s.t", file); /* temp file */
+    sprintf(lfile, "%s.l", file); /* lock file */
 
     if (close(creat(tfile, 0)) < 0)     /* make temp file */
         return -1;
@@ -357,7 +357,7 @@ int lk_close(int fd, char *fname)
 {
     char lfile[128];
 
-    (void)sprintf(lfile, "%s.l", fname);        /* recreate the lock file name */
+    sprintf(lfile, "%s.l", fname);        /* recreate the lock file name */
     if (unlink(lfile) == -1)    /* blow it away */
         perror(lfile);
     return close(fd);
