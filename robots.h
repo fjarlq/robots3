@@ -21,11 +21,11 @@
 
 #define VERT        '|'     /* vertical wall        */
 #define HORIZ       '-'     /* horizontal wall      */
-#define ROBOT       '='     /* normal robot         */
+#define ROBOT       '+'     /* normal robot         */
 #define FROBOT      '#'     /* fast robot           */
-#define SCRAP       '@'
-#define ME          'I'
-#define MUNCH       '*'
+#define SCRAP       '*'
+#define ME          '@'
+#define MUNCH       'X'
 #define DOT         '.'
 
 #define LEVEL       (level+1)

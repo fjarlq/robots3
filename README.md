@@ -4,6 +4,10 @@ This is fjarlq's fork of [the original robots2 game][1] that was
 submitted to the comp.sources.games Usenet newsgroup in July 1987
 by Julian Onions.
 
+fjarlq's changes include:
+
+- Use robots-esque symbols. (@ for player, + for robot, * for scrap)
+
 The gameplay in robots2 derives from [the robots game by Ken Arnold][2]
 that first appeared in 4.3BSD Unix, June 1986.
 
