@@ -288,7 +288,8 @@ void interrupt(int signum)
  * file locking routines - much nicer under BSD ...
  */
 
-# ifdef BSD42
+# ifdef USE_FLOCK
+# include <sys/file.h>
 /* lock a file using the flock sys call */
 int lk_open(char *file, int mode)
 {

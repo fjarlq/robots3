@@ -12,9 +12,6 @@
 # include <string.h>
 # include <unistd.h>
 # include <time.h>
-# ifdef	BSD42
-# include <sys/file.h>
-# endif
 
 # define MIN_ROBOTS	10	/* no. of robots you start with */
 # define MAX_ROBOTS	500	/* maximum robots on a screen	*/
