@@ -37,8 +37,8 @@
 # define RVPOS		47
 
 /* These you may want to fiddle with. Position of the two high score files */
-# define HOF_FILE	"/var/games/robots_hof"
-# define TMP_FILE	"/var/games/robots_tmp"
+# define HOF_FILE	"/var/games/robots3_hof"
+# define TMP_FILE	"/var/games/robots3_tmp"
 
 # define NUMSCORES	20		/* number of people to record */
 # define NUMNAME	"Twenty"	/* above spelt out */
