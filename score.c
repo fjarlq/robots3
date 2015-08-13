@@ -59,11 +59,9 @@ int record_score(bool eaten, char *fname, int max_days, char *type_str)
 
 int do_score(bool eaten, int fd, int max_days, char *type_str)
 {
-    register struct scorefile *position;
-    register int x;
-    register struct scorefile *remove, *sfile, *eof;
-    struct scorefile *oldest, *this;
-    int uid, this_day, limit;
+    struct scorefile *remove, *sfile, *eof;
+    struct scorefile *position, *oldest, *this;
+    int x, uid, this_day, limit;
     ssize_t nread;
 
     this_day = max_days ? time((time_t *) 0) / SECSPERDAY : 0;

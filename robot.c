@@ -7,8 +7,8 @@
 /* place some robots */
 void put_robots(void)
 {
-    register struct robot *r, *end;
-    register int x, y;
+    struct robot *r, *end;
+    int x, y;
 
     robot_value += level * (5 + (max_robots / scrap_heaps));
     max_robots += level * 3 + rnd(level * 5);
@@ -39,7 +39,7 @@ void put_robots(void)
 /* Troops, Troooooops advance! */
 void robots(int speed)
 {
-    register struct robot *r, *end;
+    struct robot *r, *end;
 
     end = &rbt_list[max_robots];
     for (r = rbt_list; r < end; r++) {
@@ -92,7 +92,7 @@ void robots(int speed)
 /* do two robots collide - if so - which two */
 void collision(struct robot *r, struct robot *end)
 {
-    register struct robot *find;
+    struct robot *find;
 
     for (find = rbt_list; find < end; find++) {
         if (find->alive && r != find) {
@@ -111,9 +111,9 @@ void collision(struct robot *r, struct robot *end)
 /* dismantle those robots ... */
 void screwdriver(void)
 {
-    register int test_x, test_y;
-    register char *m;
-    register struct robot *end, *find;
+    int test_x, test_y;
+    char *m;
+    struct robot *end, *find;
     static char moves[] = "hjklyubn.";
 
     end = &rbt_list[max_robots];

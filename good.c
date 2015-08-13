@@ -8,8 +8,8 @@
 
 void good_moves(void)
 {
-    register int test_x, test_y;
-    register char *m, *a;
+    int test_x, test_y;
+    char *m, *a;
     static char moves[] = "hjklyubn.a";
     static char ans[sizeof(moves)];
     char savebuf[9], savechar;
@@ -82,7 +82,7 @@ void good_moves(void)
 
 int isgood(int ty, int tx)
 {
-    register int x, y;
+    int x, y;
 
     for (x = -2; x <= 2; x++) {
         for (y = -2; y <= 2; y++) {
@@ -114,8 +114,7 @@ int isgood(int ty, int tx)
 /* scan along this line looking for collision conditions */
 int scan(int y, int x, int yi, int xi)
 {
-    int rcount = 0;
-    register int ctr;
+    int ctr, rcount = 0;
 
     for (ctr = 0; ctr <= 2; ctr++) {
         move(y + (ctr * yi), x + (ctr * xi));

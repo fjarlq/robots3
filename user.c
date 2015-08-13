@@ -179,7 +179,7 @@ int read_com(void)
 /* implement the users move */
 void do_move(char dir)
 {
-    register int x, y;
+    int x, y;
     new_x = my_x + xinc(dir);
     new_y = my_y + yinc(dir);
     if (adjacent && !first_move) {
@@ -220,7 +220,7 @@ void do_move(char dir)
 /* push a scrap heap */
 int move_heap(char dir)
 {
-    register int x, y;
+    int x, y;
 
     x = new_x + xinc(dir);
     y = new_y + yinc(dir);

@@ -58,8 +58,8 @@ char _obuf[BUFSIZ];
 
 int main(int argc, char *argv[])
 {
-    register struct passwd *pass;
-    register char *x;
+    struct passwd *pass;
+    char *x;
     int i;
 
     setbuf(stdout, _obuf);
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 
 void draw_screen(void)
 {
-    register int x, y;
+    int x, y;
     clear();
     for (y = 1; y < LINES - 2; y++) {
         mvaddch(y, 0, VERT);
@@ -164,7 +164,7 @@ char readchar(void)
 
 void put_dots(void)
 {
-    register int x, y;
+    int x, y;
     for (x = my_x - dots; x <= my_x + dots; x++) {
         for (y = my_y - dots; y <= my_y + dots; y++) {
             move(y, x);
@@ -176,7 +176,7 @@ void put_dots(void)
 
 void erase_dots(void)
 {
-    register int x, y;
+    int x, y;
     for (x = my_x - dots; x <= my_x + dots; x++) {
         for (y = my_y - dots; y <= my_y + dots; y++) {
             move(y, x);

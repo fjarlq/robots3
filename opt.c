@@ -29,7 +29,7 @@ Opt options[] = {
  */
 void get_robot_opts(char *str)
 {
-    register char *p;
+    char *p;
     Opt *op;
     int len, len2;
 
