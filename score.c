@@ -59,34 +59,29 @@ int record_score(bool eaten, char *fname, int max_days, char *type_str)
 
 int do_score(bool eaten, int fd, int max_days, char *type_str)
 {
-    struct scorefile *remove, *sfile, *eof;
-    struct scorefile *position, *oldest, *this;
+    struct scorefile *remove, *sfile = NULL, *eof;
+    struct scorefile *position, *oldest, *this = NULL;
     int x, uid, this_day, limit;
     ssize_t nread;
 
     this_day = max_days ? time(NULL) / SECSPERDAY : 0;
     limit = this_day - max_days;
-    sfile = (struct scorefile *)(malloc(FILE_SIZE));
+    sfile = calloc(NUMSCORES, sizeof(struct scorefile));
     if (sfile == NULL) {
-        fprintf(stderr, "Out of memmory so no scoring");
-        return FALSE;
+        fprintf(stderr, "Error: could not allocate memory, so no scoring\n");
+        goto out;
     }
     eof = &sfile[NUMSCORES];
-    this = NULL;
-    for (position = sfile; position < eof; position++) {
-        position->s_score = 0;
-        position->s_days = 0;
-    }
-    nread = read(fd, (char *)sfile, FILE_SIZE);
+    nread = read(fd, sfile, FILE_SIZE);
     if (nread == -1) {
         perror("Error: do_score: read");
-        return FALSE;
+        goto out;
     }
     if (nread > 0 && nread != FILE_SIZE) {
         fprintf(stderr,
                 "Error: do_score: score file truncated (%zd != %zd)\n",
                 nread, FILE_SIZE);
-        return FALSE;
+        goto out;
     }
     remove = NULL;
     if (score > 0) {
@@ -142,7 +137,7 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
             this = position;
 
             if (lseek(fd, 0L, 0) == -1L ||
-                write(fd, (char *)sfile, FILE_SIZE) != FILE_SIZE)
+                write(fd, sfile, FILE_SIZE) != FILE_SIZE)
                 perror("scorefile");
             close(fd);
         }
@@ -175,6 +170,9 @@ int do_score(bool eaten, int fd, int max_days, char *type_str)
             putchar('\n');
         }
     }
+out:
+    if (sfile != NULL)
+        free(sfile);
     return (this != NULL);
 }
 
