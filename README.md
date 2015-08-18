@@ -9,8 +9,8 @@ was posted to the net.sources.games Usenet group in May 1985.
 
 fjarlq's changes include:
 
-- Use robots-esque symbols. (`@` for player, `+` for robot, `*` for scrap)
-- Use robots-esque movement rules: stepping onto robots is disallowed.
+- Use BSD robots-esque symbols. (`@` for player, `+` for robot, `*` for scrap)
+- Use BSD robots-esque movement rules: stepping onto robots is disallowed.
 - Code cleanup.
 
 A description of robots2 excerpted from `READ_ME.orig`:
