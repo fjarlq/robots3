@@ -4,14 +4,14 @@ This is fjarlq's fork of [the original robots2 game][1] that was
 submitted to the comp.sources.games Usenet newsgroup in July 1987
 by Julian Onions.
 
+robots2 derives from [Allan Black's original robots game][2] that
+was posted to the net.sources.games Usenet group in May 1985.
+
 fjarlq's changes include:
 
 - Use robots-esque symbols. (`@` for player, `+` for robot, `*` for scrap)
 - Use robots-esque movement rules: stepping onto robots is disallowed.
 - Code cleanup.
-
-The gameplay in robots2 derives from [the robots game by Ken Arnold][2]
-that first appeared in 4.3BSD Unix, June 1986.
 
 A description of robots2 excerpted from `READ_ME.orig`:
 
@@ -30,4 +30,4 @@ A description of robots2 excerpted from `READ_ME.orig`:
 > * `Allan Black <allan@cs.strath.ac.uk>`
 
 [1]: https://github.com/fjarlq/robots2
-[2]: https://en.wikipedia.org/wiki/Robots_(BSD_game)
+[2]: https://github.com/fjarlq/robots
